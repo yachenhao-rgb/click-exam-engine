@@ -1,0 +1,39 @@
+# ============================================
+# 智能出题引擎 Web版 - Docker Compose配置
+# ============================================
+# 使用方法:
+#   开发环境: docker-compose up -d
+#   生产环境: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: smart-exam-engine
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - USE_AI=true
+      - AI_PROVIDER=deepseek
+      - AI_MODEL=deepseek-chat
+      - API_BASE_URL=https://api.deepseek.com/v1
+      - FLASK_ENV=production
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  app-network:
+    driver: bridge

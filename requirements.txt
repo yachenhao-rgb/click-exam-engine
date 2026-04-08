@@ -1,0 +1,27 @@
+# 智能出题引擎 Web版 - 依赖包
+Flask>=2.0.0
+python-docx>=0.8.11
+openpyxl>=3.0.0
+
+# PDF导出
+reportlab>=4.0.0
+
+# 用户认证
+Flask-Login==0.6.3
+email-validator==2.1.0
+
+# 文件上传与文本提取
+pytesseract>=0.3.10
+Pillow>=9.0.0
+pdfplumber>=0.10.0
+PyPDF2>=3.0.0
+
+# 题目质量验证
+nltk>=3.8.1
+
+# 生产服务器
+gunicorn>=21.0.0
+
+# HTTP客户端（用于API调用）
+httpx>=0.24.0
+openai>=1.0.0
